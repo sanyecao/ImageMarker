@@ -10,9 +10,10 @@ public class ImageResource implements Resource{
 
 	protected Image image;
 	@Override
-	public void load(String path) {
+	public ImageResource load(String path) {
 	     ImageIcon imageIcon = new ImageIcon(path);  
 	     image = imageIcon.getImage();  
+	     return this;
 	}
 
 	@Override

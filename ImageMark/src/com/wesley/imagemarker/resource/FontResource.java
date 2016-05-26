@@ -12,7 +12,7 @@ public class FontResource implements Resource{
 	protected Font font;
 	private Float fontSize;
 	@Override
-	public void load(String path) {
+	public FontResource load(String path) {
 		Font dynamicFont;
 		try {
 			dynamicFont = Font.createFont(Font.TRUETYPE_FONT, new File("f:\\img\\fonts\\yygmb.ttf"));
@@ -20,6 +20,7 @@ public class FontResource implements Resource{
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
+		return this;
 		
 	}
 
