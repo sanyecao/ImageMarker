@@ -16,21 +16,30 @@ public class BookCover {
 	
 	private String content;
 	
-	public BookCover(String cover,String content){
+	private int w;
+	
+	private int h;
+	
+	public BookCover(String cover,String content,int w, int h){
+		material = new Material();
 		this.cover = cover;
 		this.content = content;
+		this.w = w;
+		this.h = h;
 		ImageResource image = new ImageResource();
 		image.load(cover);
 		Coordinate start = new Coordinate(0,0);
 		ImageElement coverElement = new ImageElement(image,start,null,true);
 		material.putImage(coverElement);
 		TextResource text = new TextResource();
+		text.setDirection(2);
 		text.load(content);
 		FontResource font = new FontResource();
-		String fontPath = "f:\\img\\fonts\\zhanghaishan.ttf";
+		String fontPath = "f:\\img\\fonts\\方正宋刻本秀楷简体 - 副本.ttf";
 		font.load(fontPath).setFontSize(20f);;
 		text.setFont(font);
 		TextElement contentElement = new TextElement(text,null,null,true);
+		contentElement.setStart(new Coordinate(263,20));
 		material.putText(contentElement);
 	}
 
@@ -54,6 +63,22 @@ public class BookCover {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getW() {
+		return w;
+	}
+
+	public void setW(int w) {
+		this.w = w;
+	}
+
+	public int getH() {
+		return h;
+	}
+
+	public void setH(int h) {
+		this.h = h;
 	}
 
 	

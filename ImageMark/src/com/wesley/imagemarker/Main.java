@@ -1,7 +1,6 @@
 package com.wesley.imagemarker;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -10,91 +9,73 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.AttributedString;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import com.wesley.imagemarker.resource.FontResource;
-import com.wesley.imagemarker.resource.ImageResource;
+import com.wesley.imagemarker.element.ImageElement;
+import com.wesley.imagemarker.element.TextElement;
+import com.wesley.imagemarker.templet.BookCover;
 
 
 
 public class Main {
 
 	public static void main(String[] args){
-		String markContent = "ƒ„’æ‘⁄«≈…œø¥∑Áæ∞\n ø¥∑Áæ∞µƒ»À‘⁄¬•…œø¥ƒ„\n √˜‘¬◊∞ Œ¡Àƒ„µƒ¥∞◊”\n ƒ„◊∞ Œ¡À±»Àµƒ√Œ";
-		String souchFilePath = "f:\\img\\14800.jpg"; 
-		String targetFilePath = "f:\\img\\target.jpg";
-		Color markContentColor = Color.black;
-		/* ππΩ®“™¥¶¿Ìµƒ‘¥Õº∆¨ */  
-		 /* ªÒ»°“™¥¶¿ÌµƒÕº∆¨ */  
-	     ImageResource imageResource = new ImageResource();
-	     imageResource.load(souchFilePath);
-	     Image image = imageResource.getResource();
-	    
 
-	     // Imageø…“‘ªÒµ√Õº∆¨µƒ Ù–‘–≈œ¢  
-	     int width = image.getWidth(null);  
-	     int height = image.getHeight(null);  
-	     // Œ™ª≠≥ˆ”Î‘¥Õº∆¨µƒœ‡Õ¨¥Û–°µƒÕº∆¨£®ø…“‘◊‘º∫∂®“Â£©  
-	     BufferedImage bImage = new BufferedImage(height, height,  
-	                     BufferedImage.TYPE_INT_RGB);  
-	     // ππΩ®2Dª≠±   
-	     Graphics2D g = bImage.createGraphics();  
-	     //ª≠∞◊…´±≥æ∞
-	     g.setPaint(Color.white);
-	     g.fillRect(0, 0, height, height);
-	     /* …Ë÷√2Dª≠± µƒª≠≥ˆµƒŒƒ◊÷—’…´ */  
-	     g.setColor(markContentColor);  
-	     /* …Ë÷√2Dª≠± µƒª≠≥ˆµƒŒƒ◊÷±≥æ∞…´ */  
-	     g.setBackground(Color.white); 
-	     
-	     /* ª≠≥ˆÕº∆¨ */  
-	     g.drawImage(image, 0, 0, null);  
-	     char[] chars = markContent.toCharArray();
-	     /* --------∂‘“™œ‘ æµƒŒƒ◊÷Ω¯––¥¶¿Ì-------------- */  
-	     AttributedString ats = new AttributedString(markContent);  
 	     
 	     
 		try {
-			FontResource fontResource = new FontResource();
-			fontResource.setFontSize(20.0f);
-			fontResource.load("f:\\img\\fonts\\yygmb.ttf");
-			Font dynamicFontPt = fontResource.getResource();
-			
-			/*Font dynamicFont;
-			dynamicFont = Font.createFont(Font.TRUETYPE_FONT, new File("f:\\img\\fonts\\yygmb.ttf"));
-			Font dynamicFontPt = dynamicFont.deriveFont(1,20.0f);*/
-		     
-		     g.setFont(dynamicFontPt);  
-		    /* œ˚≥˝java.awt.Font◊÷ÃÂµƒæ‚≥› */  
-		     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
-		     FontMetrics fm = g.getFontMetrics();
-		     //Œƒ◊÷ø™ ºŒª÷√
-		     int sx = width+20;
-		     int sy = 10;
-		     //Œƒ◊÷µ±«∞Œª÷√
-		     int cx = sx;
-		     int cy = sy;
-		     //Œƒ◊÷º‰æ‡
-		     int space = 5;
-		     for(char cha : chars){
-		    	 Rectangle2D rc = fm.getStringBounds(""+cha, g);
-		         System.out.println(rc.getWidth()+":"+rc.getHeight());
-		         System.out.println(cha);
-		         //≥¨π˝∏ﬂ∂»ªª––
-		         if((int)(cy +rc.getHeight())>height){
-		        	 cx = (int)(cx+rc.getWidth()+space);
-		        	 cy = sy; 
-		         }
-		         g.drawString(""+cha, cx, (int) (cy+rc.getHeight()));
-		         cy = (int)(cy +rc.getHeight());
-		         
-		     }
+			String content = "Â§©Â∞ÜÈôçÂ§ß‰ªª‰∫éÊñØ‰∫∫‰πü";
+			String cover = "f:\\img\\14800.jpg";
+			String targetFilePath = "f:\\img\\bookcover.jpg";
+			int w = 573;
+			int h = 573;
+			BookCover bookCover = new BookCover(cover,content,w,h);
+			List<ImageElement> images = bookCover.getMaterial().getImages();
+			List<TextElement> texts = bookCover.getMaterial().getTexts();
+			BufferedImage bImage = new BufferedImage(bookCover.getW(), bookCover.getH(),  BufferedImage.TYPE_INT_RGB);  
+	        Graphics2D g = bImage.createGraphics();  
+	        g.setPaint(Color.white);
+	        g.fillRect(0, 0, bookCover.getW(), bookCover.getH());
+	        for(ImageElement image : images){
+	        	Image img = image.getResource().getResource(); 
+	            g.setBackground(Color.white); 
+	            g.drawImage(img, image.getStart().getX(), image.getStart().getY(), null);  
+	        }
+	        for(TextElement text : texts){
+	        	char[] chars = text.getResource().getContent().toCharArray();
+	        	 g.setFont(text.getFont());  
+	        	    /* Ê∂àÈô§java.awt.FontÂ≠ó‰ΩìÁöÑÈîØÈΩø */  
+	        	     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
+	        	     FontMetrics fm = g.getFontMetrics();
+	        	     //ÊñáÂ≠óÂºÄÂßã‰ΩçÁΩÆ
+	        	     int sx = text.getStart().getX();
+	        	     int sy = text.getStart().getY();
+	        	     //ÊñáÂ≠óÂΩìÂâç‰ΩçÁΩÆ
+	        	     int cx = sx;
+	        	     int cy = sy;
+	        	     //ÊñáÂ≠óÈó¥Ë∑ù
+	        	     int space = 5;
+	        	     for(char cha : chars){
+	        	    	 Rectangle2D rc = fm.getStringBounds(""+cha, g);
+	        	         System.out.println(rc.getWidth()+":"+rc.getHeight());
+	        	         System.out.println(cha);
+	        	         //Ë∂ÖËøáÈ´òÂ∫¶Êç¢Ë°å
+	        	         if((int)(cy +rc.getHeight())>bookCover.getH()){
+	        	        	 cx = (int)(cx+rc.getWidth()+space);
+	        	        	 cy = sy; 
+	        	         }
+	        	         g.drawString(""+cha, cx, (int) (cy+rc.getHeight()));
+	        	         cy = (int)(cy +rc.getHeight());
+	        	         
+	        	     }
 
-		     g.dispose();// ª≠± Ω· ¯  
-		     FileOutputStream out = new FileOutputStream(targetFilePath);  
-		     ImageIO.write(bImage, "jpg", out);
+	        	   
+	        }
+	        g.dispose();
+		    FileOutputStream out = new FileOutputStream(targetFilePath);  
+		    ImageIO.write(bImage, "jpg", out);
 		}  catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

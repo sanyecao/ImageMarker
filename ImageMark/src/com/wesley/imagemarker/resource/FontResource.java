@@ -10,12 +10,12 @@ import com.wesley.imagemarker.Resource;
 public class FontResource implements Resource{
 
 	protected Font font;
-	private Float fontSize;
+	private Float fontSize = 12f;
 	@Override
 	public FontResource load(String path) {
 		Font dynamicFont;
 		try {
-			dynamicFont = Font.createFont(Font.TRUETYPE_FONT, new File("f:\\img\\fonts\\yygmb.ttf"));
+			dynamicFont = Font.createFont(Font.TRUETYPE_FONT, new File(path));
 			font = dynamicFont.deriveFont(1,this.fontSize);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();

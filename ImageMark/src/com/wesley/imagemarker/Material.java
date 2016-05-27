@@ -1,5 +1,6 @@
 package com.wesley.imagemarker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.wesley.imagemarker.element.ImageElement;
@@ -9,6 +10,11 @@ public class Material {
 
 	private List<ImageElement> images;
 	private List<TextElement> texts;
+	
+	public Material(){
+		images = new ArrayList<ImageElement>();
+		texts = new ArrayList<TextElement>();
+	}
 	
 	public Material putImage(ImageElement image){
 		images.add(image);
