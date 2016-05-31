@@ -33,8 +33,9 @@ public class FontResource implements Resource{
 		return fontSize;
 	}
 	
-	public void setFontSize(Float fontSize){
+	public FontResource setFontSize(Float fontSize){
 		this.fontSize = fontSize;
+		return this;
 	}
 
 }

@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
 
 import com.wesley.imagemarker.element.ImageElement;
 import com.wesley.imagemarker.element.TextElement;
+import com.wesley.imagemarker.resource.ImageResource;
+import com.wesley.imagemarker.resource.TextResource;
 import com.wesley.imagemarker.templet.BookCover;
 
 
@@ -32,20 +34,20 @@ public class Main {
 			int w = 573;
 			int h = 573;
 			BookCover bookCover = new BookCover(cover,content,w,h);
-			List<ImageElement> images = bookCover.getMaterial().getImages();
-			List<TextElement> texts = bookCover.getMaterial().getTexts();
+			List<ImageResource> images = bookCover.getMaterial().getImages();
+			List<TextResource> texts = bookCover.getMaterial().getTexts();
 			BufferedImage bImage = new BufferedImage(bookCover.getW(), bookCover.getH(),  BufferedImage.TYPE_INT_RGB);  
 	        Graphics2D g = bImage.createGraphics();  
 	        g.setPaint(Color.white);
 	        g.fillRect(0, 0, bookCover.getW(), bookCover.getH());
-	        for(ImageElement image : images){
-	        	Image img = image.getResource().getResource(); 
+	        for(ImageResource image : images){
+	        	Image img = image.getResource(); 
 	            g.setBackground(Color.white); 
 	            g.drawImage(img, image.getStart().getX(), image.getStart().getY(), null);  
 	        }
-	        for(TextElement text : texts){
-	        	char[] chars = text.getResource().getContent().toCharArray();
-	        	 g.setFont(text.getFont());  
+	        for(TextResource text : texts){
+	        	char[] chars = text.getContent().toCharArray();
+	        	 g.setFont(text.getFont().getResource());  
 	        	    /* 消除java.awt.Font字体的锯齿 */  
 	        	     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
 	        	     FontMetrics fm = g.getFontMetrics();

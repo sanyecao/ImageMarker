@@ -26,20 +26,10 @@ public class BookCover {
 		this.content = content;
 		this.w = w;
 		this.h = h;
-		ImageResource image = new ImageResource();
-		image.load(cover);
-		Coordinate start = new Coordinate(0,0);
-		ImageElement coverElement = new ImageElement(image,start,null,true);
-		material.putImage(coverElement);
-		TextResource text = new TextResource();
-		text.setDirection(2);
-		text.load(content);
-		FontResource font = new FontResource();
 		String fontPath = "f:\\img\\fonts\\方正宋刻本秀楷简体 - 副本.ttf";
-		font.load(fontPath).setFontSize(20f);;
-		text.setFont(font);
-		TextElement contentElement = new TextElement(text,null,null,true);
-		contentElement.setStart(new Coordinate(263,20));
+		ImageResource coverElement = ImageElement.image(cover).start(0,0).responsive(false);
+		material.putImage(coverElement);	
+		TextResource contentElement = TextElement.text(content).font(fontPath, 20f).start(263, 20).direction(1);
 		material.putText(contentElement);
 	}
 

@@ -5,38 +5,40 @@ import java.util.List;
 
 import com.wesley.imagemarker.element.ImageElement;
 import com.wesley.imagemarker.element.TextElement;
+import com.wesley.imagemarker.resource.ImageResource;
+import com.wesley.imagemarker.resource.TextResource;
 
 public class Material {
 
-	private List<ImageElement> images;
-	private List<TextElement> texts;
+	private List<ImageResource> images;
+	private List<TextResource> texts;
 	
 	public Material(){
-		images = new ArrayList<ImageElement>();
-		texts = new ArrayList<TextElement>();
+		images = new ArrayList<ImageResource>();
+		texts = new ArrayList<TextResource>();
 	}
 	
-	public Material putImage(ImageElement image){
+	public Material putImage(ImageResource image){
 		images.add(image);
 		return this;
 	}
 	
-	public Material putText(TextElement text){
+	public Material putText(TextResource text){
 		texts.add(text);
 		return this;
 	}
 	
-	public List<ImageElement> getImages(){
+	public List<ImageResource> getImages(){
 		return images;
 	}
-	public Material setImages(List<ImageElement> images){
+	public Material setImages(List<ImageResource> images){
 		this.images = images;
 		return this;
 	}
-	public List<TextElement> getTexts(){
+	public List<TextResource> getTexts(){
 		return texts;
 	}
-	public Material setTexts(List<TextElement> texts){
+	public Material setTexts(List<TextResource> texts){
 		this.texts = texts;
 		return this;
 	}

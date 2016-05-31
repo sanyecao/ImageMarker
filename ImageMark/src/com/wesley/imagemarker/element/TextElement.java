@@ -1,34 +1,43 @@
 package com.wesley.imagemarker.element;
 
-import java.awt.Font;
-
-import com.wesley.imagemarker.BaseElement;
 import com.wesley.imagemarker.Coordinate;
-import com.wesley.imagemarker.Resource;
+import com.wesley.imagemarker.resource.FontResource;
 import com.wesley.imagemarker.resource.TextResource;
 
-public class TextElement extends BaseElement{
+public final class TextElement{
 
-	private TextResource resource;
-	private Font font;
+	private static TextResource resource;
 	public TextElement(TextResource resource, Coordinate start, Coordinate end, boolean responsive) {
-		super(resource, start, end, responsive);
-		this.resource = resource;
-	}
-	public Font getFont() {
-		return font;
-	}
-	public TextElement setFont(Font font) {
-		this.font = font;
-		return this;
-	}
-	public TextResource getResource() {
-		return resource;
-	}
-	public TextElement setResource(TextResource resource) {
-		this.resource = resource;
-		return this;
+		TextElement.resource = resource;
 	}
 	
+	public static TextResource text(String content){
+		resource = new TextResource().load(content);
+		return resource;
+	}
+	
+	public static TextResource font(String path,Float fontSize){
+		return resource.setFont(new FontResource().load(path).setFontSize(fontSize));
+	}
+	
+	public static TextResource start(int x,int y){
+		return resource.setStart(new Coordinate(x,y));
+	}
+	
+	public static TextResource end(int x,int y){
+		return resource.setEnd(new Coordinate(x,y));
+	}
+
+	public static TextResource responsive(boolean responsive){
+		return resource.setResponsive(responsive);
+	}
+	
+	public static TextResource direction(int direction){
+		return resource.setDirection(direction);
+	}
+
+	public TextResource getResource() {
+		return resource;
+	}	
 
 }

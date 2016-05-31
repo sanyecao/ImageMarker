@@ -1,24 +1,43 @@
 package com.wesley.imagemarker.resource;
 
-import com.wesley.imagemarker.Resource;
+import com.wesley.imagemarker.Coordinate;
 
-public class TextResource implements Resource{
+public class TextResource {
 	
 	private String content;
 	private FontResource font;
-	private int x;
-	private int y;
+	private Coordinate start;
+	private Coordinate end;
+	private  boolean  responsive;
 	private int direction;
 	
 
-	@Override
+	public  TextResource font(String path,Float fontSize){
+		return setFont(new FontResource().load(path).setFontSize(fontSize));
+	}
+	
+	public  TextResource start(int x,int y){
+		return setStart(new Coordinate(x,y));
+	}
+	
+	public  TextResource end(int x,int y){
+		return setEnd(new Coordinate(x,y));
+	}
+
+	public  TextResource responsive(boolean responsive){
+		return setResponsive(responsive);
+	}
+	
+	public  TextResource direction(int direction){
+		return setDirection(direction);
+	}
+	
 	public TextResource load(String content) {
 		// TODO Auto-generated method stub
 		this.content = content;
 		return this;
 	}
 
-	@Override
 	public Object getResource() {
 		// TODO Auto-generated method stub
 		return null;
@@ -42,21 +61,31 @@ public class TextResource implements Resource{
 		return this;
 	}
 
-	public int getX() {
-		return x;
+
+	public Coordinate getStart() {
+		return start;
 	}
 
-	public TextResource setX(int x) {
-		this.x = x;
+	public TextResource setStart(Coordinate start) {
+		this.start = start;
 		return this;
 	}
 
-	public int getY() {
-		return y;
+	public Coordinate getEnd() {
+		return end;
 	}
 
-	public TextResource setY(int y) {
-		this.y = y;
+	public TextResource setEnd(Coordinate end) {
+		this.end = end;
+		return this;
+	}
+
+	public boolean isResponsive() {
+		return responsive;
+	}
+
+	public TextResource setResponsive(boolean responsive) {
+		this.responsive = responsive;
 		return this;
 	}
 
