@@ -1,11 +1,14 @@
 package com.wesley.imagemarker.resource;
 
+import java.awt.Color;
+
 import com.wesley.imagemarker.Coordinate;
 
 public class TextResource {
 	
 	private String content;
 	private FontResource font;
+	private Color color;
 	private Coordinate start;
 	private Coordinate end;
 	private  boolean  responsive;
@@ -13,7 +16,7 @@ public class TextResource {
 	
 
 	public  TextResource font(String path,Float fontSize){
-		return setFont(new FontResource().load(path).setFontSize(fontSize));
+		return setFont(new FontResource().load(path,fontSize));
 	}
 	
 	public  TextResource start(int x,int y){
@@ -26,6 +29,10 @@ public class TextResource {
 
 	public  TextResource responsive(boolean responsive){
 		return setResponsive(responsive);
+	}
+	
+	public  TextResource color(Color color){
+		return setColor(color);
 	}
 	
 	public  TextResource direction(int direction){
@@ -95,6 +102,15 @@ public class TextResource {
 
 	public TextResource setDirection(int direction) {
 		this.direction = direction;
+		return this;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public TextResource setColor(Color color) {
+		this.color = color;
 		return this;
 	}
 	

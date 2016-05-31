@@ -17,7 +17,7 @@ public final class TextElement{
 	}
 	
 	public static TextResource font(String path,Float fontSize){
-		return resource.setFont(new FontResource().load(path).setFontSize(fontSize));
+		return resource.setFont(new FontResource().load(path,fontSize));
 	}
 	
 	public static TextResource start(int x,int y){

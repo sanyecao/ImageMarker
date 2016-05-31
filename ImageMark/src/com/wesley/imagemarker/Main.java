@@ -28,7 +28,7 @@ public class Main {
 	     
 	     
 		try {
-			String content = "天将降大任于斯人也";
+			String content = "因为我想活着，我不能掩藏我心中的本欲，正如我心中爱你美丽,又怎能嘴上装四大皆空。";
 			String cover = "f:\\img\\14800.jpg";
 			String targetFilePath = "f:\\img\\bookcover.jpg";
 			int w = 573;
@@ -47,7 +47,8 @@ public class Main {
 	        }
 	        for(TextResource text : texts){
 	        	char[] chars = text.getContent().toCharArray();
-	        	 g.setFont(text.getFont().getResource());  
+	        	 g.setFont(text.getFont().getResource()); 
+	        	 g.setColor(text.getColor());
 	        	    /* 消除java.awt.Font字体的锯齿 */  
 	        	     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
 	        	     FontMetrics fm = g.getFontMetrics();

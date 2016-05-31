@@ -7,16 +7,16 @@ import java.io.IOException;
 
 import com.wesley.imagemarker.Resource;
 
-public class FontResource implements Resource{
+public class FontResource{
 
 	protected Font font;
 	private Float fontSize = 12f;
-	@Override
-	public FontResource load(String path) {
+
+	public FontResource load(String path,Float fontSize) {
 		Font dynamicFont;
 		try {
 			dynamicFont = Font.createFont(Font.TRUETYPE_FONT, new File(path));
-			font = dynamicFont.deriveFont(1,this.fontSize);
+			font = dynamicFont.deriveFont(1,fontSize);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
@@ -24,7 +24,6 @@ public class FontResource implements Resource{
 		
 	}
 
-	@Override
 	public Font getResource() {
 		return font;
 	}
