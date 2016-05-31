@@ -28,11 +28,11 @@ public class Main {
 	     
 	     
 		try {
-			String content = "因为我想活着，我不能掩藏我心中的本欲，正如我心中爱你美丽,又怎能嘴上装四大皆空。";
-			String cover = "f:\\img\\14800.jpg";
+			String content = "若天压我，劈开那天，若地拘我，踏碎那地，我等生来自由身，谁敢高高在上.";
+			String cover = "f:\\img\\s9026255.jpg";
 			String targetFilePath = "f:\\img\\bookcover.jpg";
-			int w = 573;
-			int h = 573;
+			int w = 460;
+			int h = 460;
 			BookCover bookCover = new BookCover(cover,content,w,h);
 			List<ImageResource> images = bookCover.getMaterial().getImages();
 			List<TextResource> texts = bookCover.getMaterial().getTexts();

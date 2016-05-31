@@ -26,10 +26,10 @@ public class BookCover {
 		this.content = content;
 		this.w = w;
 		this.h = h;
-		String fontPath = "f:\\img\\fonts\\方正宋刻本秀楷简体 - 副本.ttf";
+		String fontPath = "f:\\img\\fonts\\fzmw.ttf";
 		ImageResource coverElement = ImageElement.image(cover).start(0,0).responsive(false);
 		material.putImage(coverElement);	
-		TextResource contentElement = TextElement.text(content).font(fontPath, 30f).start(363, 20).direction(1).color(Color.black);
+		TextResource contentElement = TextElement.text(content).font(fontPath, 20f).start(297, 5).direction(1).color(Color.black);
 		material.putText(contentElement);
 	}
 
