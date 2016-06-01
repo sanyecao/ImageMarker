@@ -1,21 +1,6 @@
 package com.wesley.imagemarker;
 
-import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-
 import com.wesley.imagemarker.builder.BookCoverBuilder;
-import com.wesley.imagemarker.resource.ImageResource;
-import com.wesley.imagemarker.resource.TextResource;
 
 
 
@@ -31,7 +16,8 @@ public class Main {
 			String targetFilePath = "f:\\img\\bookcover.jpg";
 
 			Templet templet = BookCoverBuilder.build(content,cover);
-			ImageMaker.build(templet,targetFilePath);
+			ImageMaker maker = ImageRender.templet(templet);
+			maker.build(targetFilePath);
 			
 		}  catch (Exception e) {
 			// TODO Auto-generated catch block

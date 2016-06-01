@@ -2,19 +2,17 @@ package com.wesley.imagemarker;
 
 public class ImageRender {
 
-	private Templet templet;
+	private static ImageMaker imageMaker;
+	private static Templet templet;
 	
-	public ImageRender templet(Templet templet){
-		this.templet = templet;
-		return this;
+	public static ImageMaker templet(Templet templet){
+		imageMaker = new ImageMaker().templet(templet);
+		return imageMaker;
 	}
 
 	public Templet getTemplet() {
 		return templet;
 	}
 
-	public void setTemplet(Templet templet) {
-		this.templet = templet;
-	}
 
 }

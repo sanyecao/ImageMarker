@@ -13,7 +13,7 @@ public class BookCoverBuilder {
 	private static int width = 460;
 	private static int height = 460;
 	private static Color bg = Color.black;
-	private static String fontPath = "f:\\img\\fonts\\FZYanSJW_Zhong_0.ttf";
+	private static String fontPath = "f:\\img\\fonts\\tianshiyanti.ttf";
 	
     public static Templet build(String content,String cover){
         TextResource contentResource = TextElement.text(content).font(fontPath, 20f).start(297, 5).direction(1).color(Color.black);
