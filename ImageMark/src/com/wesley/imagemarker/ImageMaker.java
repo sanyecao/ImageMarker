@@ -36,6 +36,7 @@ public class ImageMaker {
 	        Graphics2D g = bImage.createGraphics();  
 	        g.setPaint(Color.white);
 	        g.fillRect(0, 0, templet.getWidth(), templet.getHeight());
+	        FontMetrics fm = g.getFontMetrics();
 	        for(ImageResource image : images){
 	        	Image img = image.getResource(); 
 	            g.setBackground(Color.white); 
@@ -47,7 +48,7 @@ public class ImageMaker {
 	        	g.setColor(text.getColor());
 	        	/* 消除java.awt.Font字体的锯齿 */  
 	        	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
-	        	FontMetrics fm = g.getFontMetrics();
+	        	
 	        	//文字开始位置
 	        	int sx = text.getStart().getX();
 	        	int sy = text.getStart().getY();
@@ -60,9 +61,8 @@ public class ImageMaker {
 	        	//文字间距
 	        	int space = 5;
 	        	if(text.getFormat() == Format.HORIZONAL){
-	        		System.out.println("hor");
 	        		for(char cha : chars){
-		        	    Rectangle2D rc = fm.getStringBounds(""+cha, g);
+		        	    Rectangle2D rc = fm.getStringBounds(String.valueOf(cha), g);
 		        	    System.out.println(rc.getWidth()+":"+rc.getHeight());
 		        	    System.out.println(cha);
 		        	    //超过宽度换行
@@ -72,27 +72,36 @@ public class ImageMaker {
 		        	        cx = sx; 
 		        	        cw = 0;
 		        	    }
-		        	    g.drawString(""+cha, (int)(cx+rc.getWidth()), (int)(cy+rc.getHeight()));
+		        	    g.drawString(String.valueOf(cha), cx, (int)(cy+rc.getHeight()));
 		        	    cx = (int)(cx +rc.getWidth()); 
 		        	    cw = (int)(cw +rc.getWidth());  
 		        	    System.out.println(cw);
 		        	}   
 	        	}else if(text.getFormat() == Format.VERTICAL){
 	        		for(char cha : chars){
-		        	    Rectangle2D rc = fm.getStringBounds(""+cha, g);
+		        	    Rectangle2D rc = fm.getStringBounds(String.valueOf(cha), g);
 		        	    System.out.println(rc.getWidth()+":"+rc.getHeight());
 		        	    System.out.println(cha);
 		        	    //超过高度换行
-		        	    if((int)(cy +rc.getHeight())>text.getHeight()){
+		        	    if((int)(ch +rc.getHeight())>text.getHeight()){
 		        	        cx = (int)(cx+rc.getWidth()+space);
 		        	        cy = sy; 
+		        	        ch = 0;
 		        	    }
-		        	    g.drawString(""+cha, cx, (int) (cy+rc.getHeight()));
-		        	    cy = (int)(cy +rc.getHeight());      	         
+		        	    g.drawString(String.valueOf(cha), cx, (int) (cy+rc.getHeight()));
+		        	    cy = (int)(cy +rc.getHeight());  
+		        	    ch = (int)(ch +rc.getHeight());  
 		        	}    
 	        	} 
 	        	    	   
 	        }
+	        TextResource signature = templet.getSignature();
+	        String sign = signature.getContent();
+        	//g.setFont(signature.getFont().getResource()); 
+        	g.setColor(signature.getColor());
+        	/* 消除java.awt.Font字体的锯齿 */  
+        	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
+        	g.drawString(sign, templet.getWidth()-50, templet.getHeight()-10);   
 	        g.dispose();
 		    FileOutputStream out = new FileOutputStream(targetPath);  
 		    ImageIO.write(bImage, "jpg", out);

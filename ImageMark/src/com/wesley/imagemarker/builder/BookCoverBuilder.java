@@ -8,6 +8,7 @@ import com.wesley.imagemarker.element.TextElement;
 import com.wesley.imagemarker.resource.ImageResource;
 import com.wesley.imagemarker.resource.TextResource;
 import com.wesley.imagemarker.resource.TextResource.Direction;
+import com.wesley.imagemarker.resource.TextResource.Format;
 
 public class BookCoverBuilder {
 	private static Templet templet;
@@ -16,11 +17,12 @@ public class BookCoverBuilder {
 	private static Color bg = Color.black;
 	private static String fontPath = "/data/imagemaker/fonts/zh/msjhbd.ttc";
 	
-    public static Templet build(String content,String cover){
-        TextResource contentResource = TextElement.text(content).font(fontPath, 20f).color(Color.black).wdith(150).height(450).start(277, 5).direction(Direction.LTR);
+    public static Templet build(String content,String cover,String title){
+        TextResource contentResource = TextElement.text(content).font(fontPath, 20f).color(Color.black).wdith(150).height(450).start(292, 5).format(Format.VERTICAL).direction(Direction.LTR);
+        TextResource titleResource = TextElement.text(title).font(fontPath, 10f).color(Color.gray).wdith(150).height(450).start(440, 5).format(Format.VERTICAL).direction(Direction.LTR);
         ImageResource coverResource = ImageElement.image(cover).start(0,0).responsive(false);
         templet = new Templet().width(width).height(height).background(bg);
-        templet.put(contentResource);
+        templet.put(contentResource).put(titleResource);
         templet.put(coverResource);
     	return templet;
     }

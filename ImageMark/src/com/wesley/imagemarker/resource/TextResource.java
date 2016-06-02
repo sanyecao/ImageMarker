@@ -93,6 +93,9 @@ public class TextResource {
 		return setAlgin(align);
 	}
 
+	public TextResource format(Format format){
+		return setFormat(format);
+	}
 	
 	public  TextResource color(Color color){
 		return setColor(color);

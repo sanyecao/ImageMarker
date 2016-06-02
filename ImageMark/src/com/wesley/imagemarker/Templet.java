@@ -14,7 +14,7 @@ public class Templet {
     private ImageResource backgroundImage;
 	private Integer width;	
 	private Integer height;
-	private TextResource signature = new TextResource().load("三叶草").color(Color.black);
+	private TextResource signature = new TextResource().load("三叶草").color(Color.lightGray);
 	
 	public Templet(){
 		images = new ArrayList<ImageResource>();
