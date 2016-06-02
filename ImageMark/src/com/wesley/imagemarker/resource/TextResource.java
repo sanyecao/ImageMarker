@@ -3,18 +3,76 @@ package com.wesley.imagemarker.resource;
 import java.awt.Color;
 
 import com.wesley.imagemarker.Coordinate;
-
+/**
+ * 
+ * @author zen
+ *
+ */
 public class TextResource {
-	
+	/**
+	 * The text to draw
+	 */
 	private String content;
+	/**
+	 * The font recource 
+	 */
 	private FontResource font;
+	/**
+	 * color of the text
+	 */
 	private Color color;
+	/**
+	 * start coordinate of text
+	 */
 	private Coordinate start;
-	private Coordinate end;
-	private  boolean  responsive;
-	private int direction;
+	/**
+	 * max width of the text
+	 */
+	private int width;
+	/**
+	 * max height of the text
+	 */
+	private int height;
+	/**
+	 * text align values(Align.LEFT,Align.RIGHT,Align.CENTER)
+	 */
+	private Align algin = Align.LEFT;
+	/**
+	 * Write direction of the text values(Direction.LTR,Direction.RTL)
+	 */
+	private Direction direction = Direction.LTR;
+	/**
+	 * Format of the text values(Format.VERTICL,Format.HORIZONAL)
+	 */
+	private Format format = Format.HORIZONAL;
 	
+	/**
+	 * 
+	 * @author wesley
+	 *
+	 */
+	public enum Align{
+		LEFT, RIGHT, CENTER
+	}
+	/**
+	 * 
+	 * @author wesley
+	 *
+	 */
+	public enum Direction{
+		LTR, RTL
+	}
+	/**
+	 * 
+	 * @author wesley
+	 *
+	 */
+	public enum Format{
+		VERTICAL, HORIZONAL
+	}
 
+	
+	
 	public  TextResource font(String path,Float fontSize){
 		return setFont(new FontResource().load(path,fontSize));
 	}
@@ -23,30 +81,33 @@ public class TextResource {
 		return setStart(new Coordinate(x,y));
 	}
 	
-	public  TextResource end(int x,int y){
-		return setEnd(new Coordinate(x,y));
+	public  TextResource wdith(int width){
+		return setWidth(width);
+	}
+	
+	public  TextResource height(int height){
+		return setHeight(height);
 	}
 
-	public  TextResource responsive(boolean responsive){
-		return setResponsive(responsive);
+	public TextResource align(Align align){
+		return setAlgin(align);
 	}
+
 	
 	public  TextResource color(Color color){
 		return setColor(color);
 	}
 	
-	public  TextResource direction(int direction){
+	public  TextResource direction(Direction direction){
 		return setDirection(direction);
 	}
 	
 	public TextResource load(String content) {
-		// TODO Auto-generated method stub
 		this.content = content;
 		return this;
 	}
 
 	public Object getResource() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -78,29 +139,30 @@ public class TextResource {
 		return this;
 	}
 
-	public Coordinate getEnd() {
-		return end;
+	public int getWidth() {
+		return width;
 	}
 
-	public TextResource setEnd(Coordinate end) {
-		this.end = end;
+	public TextResource setWidth(int width) {
+		this.width = width;
 		return this;
 	}
 
-	public boolean isResponsive() {
-		return responsive;
+	public int getHeight() {
+		return height;
 	}
 
-	public TextResource setResponsive(boolean responsive) {
-		this.responsive = responsive;
+	public TextResource setHeight(int height) {
+		this.height = height;
 		return this;
 	}
 
-	public int getDirection() {
+
+	public Direction getDirection() {
 		return direction;
 	}
 
-	public TextResource setDirection(int direction) {
+	public TextResource setDirection(Direction direction) {
 		this.direction = direction;
 		return this;
 	}
@@ -111,6 +173,24 @@ public class TextResource {
 
 	public TextResource setColor(Color color) {
 		this.color = color;
+		return this;
+	}
+
+	public Align getAlgin() {
+		return algin;
+	}
+
+	public TextResource setAlgin(Align algin) {
+		this.algin = algin;
+		return this;
+	}
+
+	public Format getFormat() {
+		return format;
+	}
+
+	public TextResource setFormat(Format format) {
+		this.format = format;
 		return this;
 	}
 	

@@ -13,9 +13,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import com.wesley.imagemarker.builder.BookCoverBuilder;
 import com.wesley.imagemarker.resource.ImageResource;
 import com.wesley.imagemarker.resource.TextResource;
+import com.wesley.imagemarker.resource.TextResource.Format;
 
 public class ImageMaker {
 
@@ -27,11 +27,9 @@ public class ImageMaker {
 		return this;
 	}
 	
-	public  ImageMaker build(String targetPath){
-		
+	public  ImageMaker build(String targetPath){		
 		try {
-
-
+			
 			List<ImageResource> images = templet.getImages();
 			List<TextResource> texts = templet.getTexts();
 			BufferedImage bImage = new BufferedImage(templet.getWidth(), templet.getHeight(), BufferedImage.TYPE_INT_RGB);  
@@ -45,40 +43,60 @@ public class ImageMaker {
 	        }
 	        for(TextResource text : texts){
 	        	char[] chars = text.getContent().toCharArray();
-	        	 g.setFont(text.getFont().getResource()); 
-	        	 g.setColor(text.getColor());
-	        	    /* 消除java.awt.Font字体的锯齿 */  
-	        	     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
-	        	     FontMetrics fm = g.getFontMetrics();
-	        	     //文字开始位置
-	        	     int sx = text.getStart().getX();
-	        	     int sy = text.getStart().getY();
-	        	     //文字当前位置
-	        	     int cx = sx;
-	        	     int cy = sy;
-	        	     //文字间距
-	        	     int space = 5;
-	        	     for(char cha : chars){
-	        	    	 Rectangle2D rc = fm.getStringBounds(""+cha, g);
-	        	         System.out.println(rc.getWidth()+":"+rc.getHeight());
-	        	         System.out.println(cha);
-	        	         //超过高度换行
-	        	         if((int)(cy +rc.getHeight())>templet.getHeight()){
-	        	        	 cx = (int)(cx+rc.getWidth()+space);
-	        	        	 cy = sy; 
-	        	         }
-	        	         g.drawString(""+cha, cx, (int) (cy+rc.getHeight()));
-	        	         cy = (int)(cy +rc.getHeight());
-	        	         
-	        	     }
-
-	        	   
+	        	g.setFont(text.getFont().getResource()); 
+	        	g.setColor(text.getColor());
+	        	/* 消除java.awt.Font字体的锯齿 */  
+	        	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
+	        	FontMetrics fm = g.getFontMetrics();
+	        	//文字开始位置
+	        	int sx = text.getStart().getX();
+	        	int sy = text.getStart().getY();
+	        	//文字当前位置
+	        	int cx = sx;
+	        	int cy = sy;
+	        	
+	        	int cw = 0;
+	        	int ch = 0;
+	        	//文字间距
+	        	int space = 5;
+	        	if(text.getFormat() == Format.HORIZONAL){
+	        		System.out.println("hor");
+	        		for(char cha : chars){
+		        	    Rectangle2D rc = fm.getStringBounds(""+cha, g);
+		        	    System.out.println(rc.getWidth()+":"+rc.getHeight());
+		        	    System.out.println(cha);
+		        	    //超过宽度换行
+		        	    if((int)(cw +rc.getWidth())>text.getWidth()){
+		        	        cy = (int)(cy+rc.getHeight()+space);
+		        	        ch = (int)(cy+rc.getHeight()+space);
+		        	        cx = sx; 
+		        	        cw = 0;
+		        	    }
+		        	    g.drawString(""+cha, (int)(cx+rc.getWidth()), (int)(cy+rc.getHeight()));
+		        	    cx = (int)(cx +rc.getWidth()); 
+		        	    cw = (int)(cw +rc.getWidth());  
+		        	    System.out.println(cw);
+		        	}   
+	        	}else if(text.getFormat() == Format.VERTICAL){
+	        		for(char cha : chars){
+		        	    Rectangle2D rc = fm.getStringBounds(""+cha, g);
+		        	    System.out.println(rc.getWidth()+":"+rc.getHeight());
+		        	    System.out.println(cha);
+		        	    //超过高度换行
+		        	    if((int)(cy +rc.getHeight())>text.getHeight()){
+		        	        cx = (int)(cx+rc.getWidth()+space);
+		        	        cy = sy; 
+		        	    }
+		        	    g.drawString(""+cha, cx, (int) (cy+rc.getHeight()));
+		        	    cy = (int)(cy +rc.getHeight());      	         
+		        	}    
+	        	} 
+	        	    	   
 	        }
 	        g.dispose();
 		    FileOutputStream out = new FileOutputStream(targetPath);  
 		    ImageIO.write(bImage, "jpg", out);
 		}  catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return this;

@@ -5,8 +5,6 @@ import java.awt.FontFormatException;
 import java.io.File;
 import java.io.IOException;
 
-import com.wesley.imagemarker.Resource;
-
 public class FontResource{
 
 	protected Font font;

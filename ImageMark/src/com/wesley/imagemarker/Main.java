@@ -6,20 +6,12 @@ import com.wesley.imagemarker.builder.BookCoverBuilder;
 
 public class Main {
 
-	public static void main(String[] args){
-
-	     
-	   
+	public static void main(String[] args){	    	   
 			String content = "若天压我，劈开那天，若地拘我，踏碎那地，我等生来自由身，谁敢高高在上.";
-			String cover = "f:\\img\\s9026255.jpg";
-			String targetFilePath = "f:\\img\\bookcover.jpg";
-
+			String cover = "/data/imagemaker/images/s9026255.jpg";
+			String targetFilePath = "/data/imagemaker/output/bookcover.jpg";			
 			Templet templet = BookCoverBuilder.build(content,cover);
 			ImageMaker maker = ImageRender.templet(templet);
-			maker.build(targetFilePath);
-			
-
-	     
-	     
+			maker.build(targetFilePath);				     	     
 	}
 }
