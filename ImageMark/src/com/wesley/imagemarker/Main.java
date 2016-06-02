@@ -15,7 +15,8 @@ public class Main {
 			String targetFilePath = "f:\\img\\bookcover.jpg";
 
 			Templet templet = BookCoverBuilder.build(content,cover);
-			ImageMaker.build(templet,targetFilePath);
+			ImageMaker maker = ImageRender.templet(templet);
+			maker.build(targetFilePath);
 			
 
 	     

@@ -19,14 +19,15 @@ import com.wesley.imagemarker.resource.TextResource;
 
 public class ImageMaker {
 
-	private static ImageRender imageRender;
+
+	private  Templet templet;
 	
-	public static ImageRender templet(Templet templet){
-		imageRender = new ImageRender().templet(templet);
-		return imageRender;
+	public  ImageMaker templet(Templet templet){
+		this.templet = templet;
+		return this;
 	}
 	
-	public static ImageRender build(Templet templet,String targetPath){
+	public  ImageMaker build(String targetPath){
 		
 		try {
 
@@ -80,16 +81,7 @@ public class ImageMaker {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return imageRender;
+		return this;
 	}
-
-	public ImageRender getImageRender() {
-		return imageRender;
-	}
-	
-	
-
-
-	
 
 }
