@@ -1,6 +1,7 @@
 package com.wesley.imagemarker;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -44,8 +45,12 @@ public class ImageMaker {
 	        }
 	        for(TextResource text : texts){
 	        	char[] chars = text.getContent().toCharArray();
-	        	g.setFont(text.getFont().getResource()); 
-	        	g.setColor(text.getColor());
+	        	if(text.getFont()!=null){
+		        	g.setFont(text.getFont().getResource()); 
+		        }else{
+		        	g.setFont(new Font("宋体",0,10));
+		        }
+	        	g.setColor(text.getColor()!=null?text.getColor():Color.black);
 	        	/* 消除java.awt.Font字体的锯齿 */  
 	        	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
 	        	
@@ -58,46 +63,54 @@ public class ImageMaker {
 	        	
 	        	int cw = 0;
 	        	int ch = 0;
-	        	//文字间距
-	        	int space = 5;
+	        	//水平方向
 	        	if(text.getFormat() == Format.HORIZONAL){
 	        		for(char cha : chars){
 		        	    Rectangle2D rc = fm.getStringBounds(String.valueOf(cha), g);
 		        	    System.out.println(rc.getWidth()+":"+rc.getHeight());
 		        	    System.out.println(cha);
+		        	    double wordWidth = rc.getWidth() + text.getSpace();
+		        	    double wordHeight = rc.getHeight() > text.getLineHeight()?rc.getHeight():text.getLineHeight();
 		        	    //超过宽度换行
 		        	    if((int)(cw +rc.getWidth())>text.getWidth()){
-		        	        cy = (int)(cy+rc.getHeight()+space);
-		        	        ch = (int)(cy+rc.getHeight()+space);
+		        	        cy = (int)(cy + wordHeight);
+		        	        ch = (int)(cy + wordHeight);
 		        	        cx = sx; 
 		        	        cw = 0;
 		        	    }
-		        	    g.drawString(String.valueOf(cha), cx, (int)(cy+rc.getHeight()));
-		        	    cx = (int)(cx +rc.getWidth()); 
-		        	    cw = (int)(cw +rc.getWidth());  
+		        	    g.drawString(String.valueOf(cha), cx, (int)(cy + wordHeight));
+		        	    cx = (int)(cx + wordWidth); 
+		        	    cw = (int)(cw + wordWidth);  
 		        	    System.out.println(cw);
 		        	}   
-	        	}else if(text.getFormat() == Format.VERTICAL){
+	        	}else if(text.getFormat() == Format.VERTICAL){     //垂直 方向
 	        		for(char cha : chars){
 		        	    Rectangle2D rc = fm.getStringBounds(String.valueOf(cha), g);
-		        	    System.out.println(rc.getWidth()+":"+rc.getHeight());
+		        	    System.out.println(rc.getWidth()+":"+ rc.getHeight());
 		        	    System.out.println(cha);
+		        	    double wordHeight = rc.getHeight() + text.getSpace();
+		        	    double wordWidth = rc.getWidth() > text.getLineHeight()?rc.getWidth():text.getLineHeight();
 		        	    //超过高度换行
-		        	    if((int)(ch +rc.getHeight())>text.getHeight()){
-		        	        cx = (int)(cx+rc.getWidth()+space);
+		        	    if((int)(ch + wordHeight ) > text.getHeight()){
+		        	        cx = (int)(cx + wordWidth);
 		        	        cy = sy; 
 		        	        ch = 0;
 		        	    }
-		        	    g.drawString(String.valueOf(cha), cx, (int) (cy+rc.getHeight()));
-		        	    cy = (int)(cy +rc.getHeight());  
-		        	    ch = (int)(ch +rc.getHeight());  
+		        	    g.drawString(String.valueOf(cha), cx, (int)(cy + wordHeight));
+		        	    cy = (int)(cy + wordHeight);  
+		        	    ch = (int)(ch + wordHeight);  
 		        	}    
 	        	} 
 	        	    	   
 	        }
 	        TextResource signature = templet.getSignature();
 	        String sign = signature.getContent();
-        	//g.setFont(signature.getFont().getResource()); 
+	        if(signature.getFont()!=null){
+	        	g.setFont(signature.getFont().getResource()); 
+	        }else{
+	        	g.setFont(new Font("宋体",0,10));
+	        }
+        	
         	g.setColor(signature.getColor());
         	/* 消除java.awt.Font字体的锯齿 */  
         	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
