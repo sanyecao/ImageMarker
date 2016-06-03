@@ -110,11 +110,12 @@ public class ImageMaker {
 	        }else{
 	        	g.setFont(new Font("宋体",0,10));
 	        }
-        	
+	        Rectangle2D rc = fm.getStringBounds(sign, g);
+    	    System.out.println(rc.getWidth()+":"+ rc.getHeight());
         	g.setColor(signature.getColor());
         	/* 消除java.awt.Font字体的锯齿 */  
         	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
-        	g.drawString(sign, templet.getWidth()-50, templet.getHeight()-10);   
+        	g.drawString(sign, templet.getWidth()-40, templet.getHeight()-3);   
 	        g.dispose();
 		    FileOutputStream out = new FileOutputStream(targetPath);  
 		    ImageIO.write(bImage, "jpg", out);
