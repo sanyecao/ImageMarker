@@ -32,7 +32,7 @@ public class ImageMaker {
 		return this;
 	}
 	
-	private List<Map<String,Object>> analyzeContent(Graphics2D g,TextResource text){
+	private List<Map<String,Object>> processContent(Graphics2D g,TextResource text){
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		char[] chars = text.getContent().toCharArray();
 		if(text.getFont()!=null){
@@ -125,7 +125,7 @@ public class ImageMaker {
 	        	
 	        	int cw = 0;
 	        	int ch = 0;
-	        	List<Map<String,Object>> list =  analyzeContent(g, text);
+	        	List<Map<String,Object>> list =  processContent(g, text);
 	        	System.out.println(list.size());
 	        	//水平方向
 	        	FontMetrics fm = g.getFontMetrics();
