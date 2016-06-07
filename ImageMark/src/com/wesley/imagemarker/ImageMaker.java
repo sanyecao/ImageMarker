@@ -59,7 +59,7 @@ public class ImageMaker {
 					line = "";
 				}
 				line +=String.valueOf(cha);
-				lh = rc.getHeight();
+				lh = rc.getHeight() > text.getLineHeight()?rc.getHeight():text.getLineHeight();;
 				lw+=(rc.getWidth()+text.getSpace());
 			}else{
 				if((lh+rc.getHeight())>th){ //换行
@@ -73,7 +73,7 @@ public class ImageMaker {
 				}
 				line +=String.valueOf(cha);
 				lh += (rc.getHeight()+text.getSpace());
-				lw = rc.getWidth();
+				lw = rc.getWidth() > text.getLineHeight()?rc.getWidth():text.getLineHeight();;
 			}
 			
 			
@@ -106,13 +106,12 @@ public class ImageMaker {
 	            g.drawImage(img, image.getStart().getX(), image.getStart().getY(), null);  
 	        }
 	        for(TextResource text : texts){
-	        	char[] chars = text.getContent().toCharArray();
 	        	if(text.getFont()!=null){
 		        	g.setFont(text.getFont().getResource()); 
 		        }else{
 		        	g.setFont(new Font("宋体",0,10));
 		        }
-	        	g.setColor(text.getColor()!=null?text.getColor():Color.black);
+	        	
 	        	/* 消除java.awt.Font字体的锯齿 */  
 	        	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
 	        	
@@ -122,9 +121,7 @@ public class ImageMaker {
 	        	//文字当前位置
 	        	int cx = sx;
 	        	int cy = sy;
-	        	
-	        	int cw = 0;
-	        	int ch = 0;
+
 	        	List<Map<String,Object>> list =  processContent(g, text);
 	        	System.out.println(list.size());
 	        	//水平方向
@@ -146,6 +143,13 @@ public class ImageMaker {
 			        	    double wordWidth = rc.getWidth() + text.getSpace();
 			        	    double wordHeight = rc.getHeight() > text.getLineHeight()?rc.getHeight():text.getLineHeight();
 
+			        	    if(text.getShadow()!=null){
+			        	    	 //画阴影				        	    
+				        	    g.setColor(text.getShadow().color());
+				        	    g.drawString(String.valueOf(cha), x+text.getShadow().x(), (int)(cy + wordHeight)+text.getShadow().y());
+			        	    }
+			        	   
+			        	    g.setColor(text.getColor()!=null?text.getColor():Color.black);
 			        	    g.drawString(String.valueOf(cha), x, (int)(cy + wordHeight));
 			        	    x = (int)(x + wordWidth); 
 
@@ -171,7 +175,12 @@ public class ImageMaker {
 			        	    System.out.println(cha);
 			        	    double _wordHeight = rc.getHeight() + text.getSpace();
 			        	    double _wordWidth = rc.getWidth() > text.getLineHeight()?rc.getWidth():text.getLineHeight();
-			        	   
+			        	    if(text.getShadow()!=null){
+			        	    	 //画阴影				        	    
+				        	    g.setColor(text.getShadow().color());
+				        	    g.drawString(String.valueOf(cha), cx+text.getShadow().x(), (int)(y + _wordHeight)+text.getShadow().y());
+			        	    }
+			        	    g.setColor(text.getColor()!=null?text.getColor():Color.black);
 			        	    g.drawString(String.valueOf(cha), cx, (int)(y + _wordHeight));
 			        	    y = (int)(y + _wordHeight);   
 			        	    ww = (int)_wordWidth;

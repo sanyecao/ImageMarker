@@ -3,6 +3,7 @@ package com.wesley.imagemarker.resource;
 import java.awt.Color;
 
 import com.wesley.imagemarker.Coordinate;
+import com.wesley.imagemarker.Shadow;
 /**
  * 
  * @author zen
@@ -59,6 +60,11 @@ public class TextResource {
 	private int lineHeight;
 	
 	/**
+	 * shadow
+	 */
+	private Shadow shadow;
+	
+	/**
 	 * 
 	 * @author wesley
 	 *
@@ -83,6 +89,8 @@ public class TextResource {
 		VERTICAL, HORIZONAL
 	}
 
+	
+	
 	public class Padding{
 		private int left;
 		private int right;
@@ -154,6 +162,10 @@ public class TextResource {
 	
 	public  TextResource direction(Direction direction){
 		return setDirection(direction);
+	}
+	
+	public TextResource shadow(Shadow shadow){
+		return setShadow(shadow);
 	}
 	
 	public TextResource padding(Padding padding){
@@ -284,6 +296,15 @@ public class TextResource {
 
 	public TextResource setLineHeight(int lineHeight) {
 		this.lineHeight = lineHeight;
+		return this;
+	}
+
+	public Shadow getShadow() {
+		return shadow;
+	}
+
+	public TextResource setShadow(Shadow shadow) {
+		this.shadow = shadow;
 		return this;
 	}
 	
