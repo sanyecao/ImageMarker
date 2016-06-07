@@ -205,7 +205,15 @@ public class ImageMaker {
         	g.setColor(signature.getColor());
         	/* 消除java.awt.Font字体的锯齿 */  
         	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
-        	g.drawString(sign, templet.getWidth()-40, templet.getHeight()-3);   
+        	char[] schar = sign.toCharArray();
+        	int x = templet.getWidth()-140;
+        	for(char cha : schar){
+        		Rectangle2D rcs = fm.getStringBounds(String.valueOf(cha), g);
+        		
+        		g.drawString(String.valueOf(cha), x, templet.getHeight()-3);
+        		x = (int) (x + rcs.getWidth() + signature.getSpace());
+        	}
+        	   
 	        g.dispose();
 		    FileOutputStream out = new FileOutputStream(targetPath);  
 		    ImageIO.write(bImage, "jpg", out);
